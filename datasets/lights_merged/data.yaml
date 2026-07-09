@@ -1,0 +1,8 @@
+# 合并路灯数据集(damaged_lights + pole_dst2328)
+# 类别 ID 统一: 0=light_off(灯灭/故障), 1=light_on(灯亮/正常)
+# 类别不平衡: val 集中 light_off 仅 3.7%,训练后单独看 light_off mAP
+train: images/train
+val: images/val
+
+nc: 2
+names: ['light_off', 'light_on']

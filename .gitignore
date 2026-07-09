@@ -22,3 +22,7 @@ datasets/**/train/
 datasets/**/valid/
 datasets/**/test/
 *.zip
+
+# 合并后的 lights_merged 媒体(只留 data.yaml)
+datasets/lights_merged/images/
+datasets/lights_merged/labels/
