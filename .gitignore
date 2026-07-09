@@ -14,3 +14,11 @@ dist/
 build/
 .cache/
 .DS_Store
+
+# 数据集图片与标签（体积大，不入库；仅保留 data.yaml）
+datasets/**/images/
+datasets/**/labels/
+datasets/**/train/
+datasets/**/valid/
+datasets/**/test/
+*.zip

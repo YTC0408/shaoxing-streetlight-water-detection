@@ -1,0 +1,13 @@
+# 路灯故障检测数据集
+train: train/images
+val: valid/images
+
+nc: 2
+names: ['Not Working', 'Working']
+
+roboflow:
+  workspace: godspeed-yqpeo
+  project: damaged-lights
+  version: 1
+  license: CC BY 4.0
+  url: https://universe.roboflow.com/godspeed-yqpeo/damaged-lights/dataset/1

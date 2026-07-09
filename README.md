@@ -21,14 +21,27 @@ python yolo-v.py
 
 默认调用摄像头（`cv2.VideoCapture(0)`）。按 `q` 退出。改用视频文件时把 `VideoCapture(0)` 换成视频路径。
 
-## 模型
+## 数据集
 
-当前使用预训练的 `yolov8n.pt`（COCO 通用目标）。检测路灯故障 / 路面积水需自行采集校园数据集并训练：
+放在 `datasets/`（图片/标签体积大，未入库，仅保留 `data.yaml`）：
+
+| 数据集 | 任务 | 类别 | 训练/验证 |
+|---|---|---|---|
+| `datasets/damaged_lights` | 目标检测 | `Not Working` / `Working` | 1581 / 92 |
+| `datasets/dataset_new` | 实例分割（多边形） | `water` | 1200 / 300 |
+
+> 积水数据集原目录名为 `lables`，已修正为 `labels` 并补齐 `data.yaml`。
+
+## 训练
 
 ```bash
-yolo train data=streetlight_water.yaml model=yolov8n.pt epochs=100 imgsz=640
+pip install ultralytics opencv-python
+
+python train.py lights   # 路灯故障（检测）
+python train.py water    # 路面积水（分割，用 yolov8n-seg.pt）
+python train.py          # 两个都训
 ```
 
-训练好的权重放到项目目录，把 `yolo-v.py` 中的 `YOLO('yolov8n.pt')` 改成对应权重。
+训练好的权重在 `runs/` 下，把 `yolo-v.py` 中的 `YOLO('yolov8n.pt')` 改成对应权重即可推理。
 
-> `.pt` 权重文件已在 `.gitignore` 中忽略，不纳入版本管理。
+> `.pt` 权重与 `runs/` 已在 `.gitignore` 中忽略。

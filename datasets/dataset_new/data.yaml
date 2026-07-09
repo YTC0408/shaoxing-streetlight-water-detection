@@ -1,0 +1,6 @@
+# 路面积水检测数据集（分割标注，多边形）
+train: images/train
+val: images/val
+
+nc: 1
+names: ['water']
