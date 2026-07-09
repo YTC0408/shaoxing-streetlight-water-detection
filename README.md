@@ -47,6 +47,9 @@ python train.py water       # 路面积水（分割,用 yolov8n-seg.pt）
 python train_poles.py       # 路灯整杆（夜间街景,含灯杆,类别不平衡）
 ```
 
-训练好的权重在 `runs/` 下，把 `yolo-v.py` 中的 `YOLO('yolov8n.pt')` 改成对应权重即可推理。
+## 推理
 
-> `.pt` 权重与 `runs/` 已在 `.gitignore` 中忽略。
+- 单一模型:`python detect_lights.py`(默认 `WEIGHTS = 'runs/detect/lights/weights/best.pt'`,改路径切模型)
+- 双模型 WBF 融合:`python detect_lights_wbf.py`,同时跑 `lights_only` + `poles` 两套权重,WBF 合并预测召回↑精度↑
+
+按 `q` 退出。
