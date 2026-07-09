@@ -59,10 +59,10 @@ def main():
             cls_name = names.get(cls_id, str(cls_id))
             if is_truncated(x1, y1, x2, y2, w, h):
                 draw_box(frame, x1, y1, x2, y2, 'uncertain', (0, 165, 255))  # orange
-            elif cls_name == 'Working':
-                draw_box(frame, x1, y1, x2, y2, 'Working', (0, 255, 0))
-            elif cls_name == 'Not Working':
-                draw_box(frame, x1, y1, x2, y2, 'Not Working', (0, 0, 255))
+            elif cls_name in ('light_on', 'Working'):
+                draw_box(frame, x1, y1, x2, y2, 'light_on', (0, 255, 0))
+            elif cls_name in ('light_off', 'Not Working', 'damaged pole'):
+                draw_box(frame, x1, y1, x2, y2, 'light_off', (0, 0, 255))
             else:
                 draw_box(frame, x1, y1, x2, y2, cls_name, (255, 255, 0))
 

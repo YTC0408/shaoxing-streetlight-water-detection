@@ -27,9 +27,12 @@ python yolo-v.py
 
 | 数据集 | 任务 | 类别 | 训练/验证 |
 |---|---|---|---|
-| `datasets/damaged_lights` | 目标检测 | `Not Working` / `Working` | 1581 / 92 |
+| `datasets/damaged_lights` | 目标检测 | `light_off` / `light_on` (原 Not Working/Working) | 1581 / 92 |
 | `datasets/dataset_new` | 实例分割（多边形） | `water` | 1200 / 300 |
-| `datasets/pole_dst2328` | 目标检测（含灯杆,夜间街景） | `lightening` / `damaged pole` | 5235 / 272 / 42 |
+| `datasets/pole_dst2328` | 目标检测（含灯杆,夜间街景） | `lightening` / `damaged pole` (语义=light_on/light_off) | 5235 / 272 / 42 |
+
+> 夜间场景下,灯不亮 = 故障。`damaged_lights` 与 `pole_dst2328` 类别语义对齐:`light_off` ≡ `damaged pole`,`light_on` ≡ `lightening`。
+> 训练时各自独立用 `data.yaml`;`detect_lights.py` 的类别映射已支持两套命名。
 
 > 积水数据集原目录名为 `lables`，已修正为 `labels` 并补齐 `data.yaml`。
 > `pole_dst2328` 类别严重不平衡：train 中 `damaged pole` 仅 ~3%，先跑 baseline 再决定是否加权/重采样。

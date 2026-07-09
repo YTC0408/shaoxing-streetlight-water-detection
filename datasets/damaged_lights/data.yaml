@@ -1,9 +1,12 @@
 # 路灯故障检测数据集
+# 类别语义:夜间不亮=故障。命名与 pole_dst2328 对齐(light_off/light_on)。
+# 原 Roboflow 标注: cls 0=Not Working, cls 1=Working
+# 改名为:         cls 0=light_off(=Not Working), cls 1=light_on(=Working)
 train: train/images
 val: valid/images
 
 nc: 2
-names: ['Not Working', 'Working']
+names: ['light_off', 'light_on']
 
 roboflow:
   workspace: godspeed-yqpeo
