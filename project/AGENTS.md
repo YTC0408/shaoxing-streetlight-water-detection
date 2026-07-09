@@ -36,8 +36,6 @@
 ├── AGENTS.md               # 本文件
 ├── requirements.txt        # 运行时依赖
 ├── yolo-v.py               # 原有实时摄像头/视频 YOLOv8 推理演示
-├── auto_sync.py            # GitHub 自动同步脚本（可选）
-├── auto_sync.bat           # Windows 下启动自动同步
 ├── run_daily.sh            # Ubuntu 每日巡检流水线入口
 ├── run_calibrate.sh        # Ubuntu 标定模式入口
 ├── config/
