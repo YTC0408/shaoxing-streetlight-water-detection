@@ -1,0 +1,8 @@
+# 路灯整杆数据集(含杆,夜间街景)
+# 类别不平衡提示: train 中 damaged pole 仅 ~3%,可加 augment 或 class-weight 缓解
+train: images/train
+val: images/valid
+test: images/test
+
+nc: 2
+names: ['lightening', 'damaged pole']

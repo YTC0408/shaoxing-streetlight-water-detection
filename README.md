@@ -29,17 +29,19 @@ python yolo-v.py
 |---|---|---|---|
 | `datasets/damaged_lights` | 目标检测 | `Not Working` / `Working` | 1581 / 92 |
 | `datasets/dataset_new` | 实例分割（多边形） | `water` | 1200 / 300 |
+| `datasets/pole_dst2328` | 目标检测（含灯杆,夜间街景） | `lightening` / `damaged pole` | 5235 / 272 / 42 |
 
 > 积水数据集原目录名为 `lables`，已修正为 `labels` 并补齐 `data.yaml`。
+> `pole_dst2328` 类别严重不平衡：train 中 `damaged pole` 仅 ~3%，先跑 baseline 再决定是否加权/重采样。
 
 ## 训练
 
 ```bash
 pip install ultralytics opencv-python
 
-python train.py lights   # 路灯故障（检测）
-python train.py water    # 路面积水（分割，用 yolov8n-seg.pt）
-python train.py          # 两个都训
+python train.py lights      # 路灯故障（检测,只框灯头）
+python train.py water       # 路面积水（分割,用 yolov8n-seg.pt）
+python train_poles.py       # 路灯整杆（夜间街景,含灯杆,类别不平衡）
 ```
 
 训练好的权重在 `runs/` 下，把 `yolo-v.py` 中的 `YOLO('yolov8n.pt')` 改成对应权重即可推理。
