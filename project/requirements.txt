@@ -1,0 +1,7 @@
+# 绍兴大学路灯故障与路面积水视觉检测项目依赖
+# 推荐 Python 版本：3.10
+
+ultralytics==8.4.90
+opencv-python==4.13.0.92
+pyyaml>=6.0
+numpy>=2.0

@@ -1,0 +1,36 @@
+# 摄像头全局配置示例
+# 复制为 cameras.yaml 后按实际修改，或让程序自动生成
+
+# 默认参数，可被单摄像头配置覆盖
+defaults:
+  # 视频采样：每小时取多少帧用于分析
+  samples_per_hour: 6
+
+  # 夜间亮度阈值（0-255）
+  night_brightness_threshold: 120
+
+  # 路灯最小/最大像素面积
+  min_lamp_area: 30
+  max_lamp_area: 2000
+
+  # 形状过滤：最小圆形度（0-1）
+  min_circularity: 0.3
+
+  # 多帧共识：目标至少在多少比例的帧中出现才保留
+  consensus_ratio: 0.6
+
+  # 亮度异常判定阈值
+  brightness_dim_ratio: 0.5      # < 50% 视为不亮/严重变暗
+  brightness_warning_ratio: 0.7  # < 70% 视为亮度异常
+
+  # 完整性判定阈值
+  integrity_area_ratio: 0.5      # mask 面积 < 基准 50% 视为破损/缺失
+  integrity_offset_threshold: 15 # 中心点偏移像素阈值
+
+# 摄像头列表，可留空由自动标定填充
+cameras:
+  # 示例：
+  # cam_001:
+  #   video_path: /data/videos/cam_001/2026-07-09.mp4
+  #   roi: [[100, 200], [150, 200], [150, 250], [100, 250]]  # 手动多边形
+  #   timezone: Asia/Shanghai
