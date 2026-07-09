@@ -51,5 +51,6 @@ python train_poles.py       # 路灯整杆（夜间街景,含灯杆,类别不平
 
 - 单一模型:`python detect_lights.py`(默认 `WEIGHTS = 'runs/detect/lights/weights/best.pt'`,改路径切模型)
 - 双模型 WBF 融合:`python detect_lights_wbf.py`,同时跑 `lights_only` + `poles` 两套权重,WBF 合并预测召回↑精度↑
+- UI 测试工具:`python test_ui.py`,Tkinter 窗口,单张/批量推理,WBF 开关,置信度滑块,标注图 + 结果表格 + 保存
 
 按 `q` 退出。
