@@ -1,0 +1,16 @@
+__pycache__/
+*.pyc
+.env
+.env.local
+.venv/
+venv/
+*.log
+runs/
+weights/
+*.pt
+*.pth
+*.onnx
+dist/
+build/
+.cache/
+.DS_Store
