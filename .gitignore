@@ -26,3 +26,14 @@ datasets/**/test/
 # 合并后的 lights_merged 媒体(只留 data.yaml)
 datasets/lights_merged/images/
 datasets/lights_merged/labels/
+
+# 巡检运行时产物(monitor.py 落库,每次启动清表重建)
+monitor.db
+monitor.db-journal
+monitor.db-wal
+monitor.db-shm
+rois.json
+
+# 规划/状态/本地工作目录(不入库)
+.omc/
+.vscode/

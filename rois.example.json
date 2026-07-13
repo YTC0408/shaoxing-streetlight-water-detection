@@ -1,0 +1,9 @@
+{
+  "_comment": "示例 ROI 配置:运行时由 calibrate_rois.py 生成/覆盖。frame_size 标定时记录,运行时不缩放,只校验。",
+  "frame_size": [1920, 1080],
+  "weights": "runs/obb/runs/obb/kfold_fold0/weights/best.pt",
+  "lights": [
+    {"id": "L1", "name": "示例灯#1", "cx": 480, "cy": 420, "half_w": 90, "half_h": 90},
+    {"id": "L2", "name": "示例灯#2", "cx": 1320, "cy": 460, "half_w": 90, "half_h": 90}
+  ]
+}
