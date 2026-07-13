@@ -100,3 +100,53 @@ sqlite3 monitor.db "SELECT * FROM faults"
 - OBB 边缘截断 → `cls=NULL` → 不进状态机，但 `observations.truncated=1` 留痕
 
 `.gitignore` 已排除 `monitor.db` / `rois.json` / `*.pt` / `runs/`。
+
+### 接入摄像头 / 视频源
+
+`monitor.py` 的 `--source` 参数接受 OpenCV `VideoCapture` 能打开的一切(USB 摄像头索引、RTSP/HTTP 流、本地视频文件)。`calibrate_rois.py` 的 `--source` 同样适用。
+
+```bash
+# USB 摄像头: --source 是数字索引(0 = 默认摄像头,1 = 第二个...)
+python monitor.py --rois rois.json --source 0 --interval 2
+
+# RTSP 网络摄像头(海康/大华等)
+python monitor.py --rois rois.json --source rtsp://user:pass@192.168.1.100:554/Streaming/Channels/101
+
+# HTTP 视频流(MJPEG/HLS)
+python monitor.py --rois rois.json --source http://camera.local/video.mjpg
+
+# 本地录像回放(用于回放测试/取证)
+python monitor.py --rois rois.json --source ./recordings/2026-07-13.mp4 --frame-stride 30
+```
+
+#### 找 USB 摄像头索引
+
+Windows 上多个摄像头时,`0`/`1`/`2` 顺序可能不直观,可用这段小脚本列出来:
+
+```python
+import cv2
+for i in range(5):
+    cap = cv2.VideoCapture(i, cv2.CAP_DSHOW)  # CAP_DSHOW 加速 Windows 上的枚举
+    if cap.isOpened():
+        ok, _ = cap.read()
+        print(f"[{i}] 可用" if ok else f"[{i}] 打开了但读不到帧")
+        cap.release()
+```
+
+#### 参数说明
+
+| 参数 | 默认 | 说明 |
+|---|---|---|
+| `--source` | `0` | 摄像头索引 / RTSP URL / 视频文件路径 |
+| `--interval` | `2.0` | 实时模式下抓帧间隔(秒);视频模式忽略 |
+| `--frame-stride` | `30` | 视频模式抽帧:每 N 帧采 1 次(假设 30fps ≈ 1s/帧) |
+| `--db` | `monitor.db` | SQLite 输出路径 |
+| `--config` | `monitor_config.json` | 夜间区间配置;文件不存在回退默认 18:00-06:00 |
+| `--duration` | `0` | `>0` 时跑 N 秒后退出(测试用) |
+| `--demo` | – | 跑合成帧自检,不连摄像头/YOLO |
+
+#### 常见问题
+
+- **摄像头打不开**:OpenCV 默认后端在 Windows 上经常黑屏,加 `cv2.CAP_DSHOW`。如需更稳的接入,改 `monitor.py` 的 `cv2.VideoCapture(src)` 为 `cv2.VideoCapture(src, cv2.CAP_DSHOW)`(RTSP 仍用默认后端)。
+- **RTSP 断流**:脚本有 `MAX_RETRY=5` 次读帧失败后退出;长期监控建议套 `nssm` / `systemd` 之类的进程守护,挂了自启。
+- **画面分辨率与 `rois.json` 不一致**:标定分辨率记录在 `frame_size`,启动时只 warn 不缩放。要换摄像头分辨率请重新跑 `calibrate_rois.py`。
